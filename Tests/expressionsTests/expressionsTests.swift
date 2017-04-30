@@ -1,3 +1,4 @@
+
 import XCTest
 import LogicKit
 @testable import expressions
@@ -22,10 +23,10 @@ class expressionsTests: XCTestCase {
             ("testDiv", testDiv),
             ("testEqual", testEqual),
             ("testNotEqual", testNotEqual),
-            ("testLessEqual", testLessEqual),
-            ("testGreaterThan", testGreaterThan),
-            ("testGreaterEqual", testGreaterEqual),
-            ("testLessThan", testLessThan),
+            ("testlessEqual", testlessEqual),
+            ("testgreaterThan", testgreaterThan),
+            ("testgreaterEqual", testgreaterEqual),
+            ("testlessThan", testlessThan),
             ("testEval", testEval)
         ]
     }
@@ -106,9 +107,9 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testLessThan() {
+    func testlessThan() {
         let v = Variable(named: "v")
-        let goal = evalComparaison(lessthan(toNumber(3), toNumber(5)), v)
+        let goal = evalComparaison(lessThan(toNumber(3), toNumber(5)), v)
         for sub in solve(goal) {
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "the first number is greater than or equal to the second")
@@ -116,9 +117,9 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testGreaterThan() {
+    func testgreaterThan() {
         let v = Variable(named: "v")
-        let goal = evalComparaison(greaterthan(toNumber(7), toNumber(4)), v)
+        let goal = evalComparaison(greaterThan(toNumber(7), toNumber(4)), v)
         for sub in solve(goal) {
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "the first number is lesser than or equal to the second")
@@ -126,9 +127,9 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testLessEqual() {
+    func testlessEqual() {
         let v = Variable(named: "v")
-        let goal = evalComparaison(lessequal(toNumber(41), toNumber(100)), v)
+        let goal = evalComparaison(lessEqual(toNumber(41), toNumber(100)), v)
         for sub in solve(goal) {
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "the first number is strictly greater than the second")
@@ -136,9 +137,9 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testGreaterEqual() {
+    func testgreaterEqual() {
         let v = Variable(named: "v")
-        let goal = evalComparaison(greaterequal(toNumber(65), toNumber(65)), v)
+        let goal = evalComparaison(greaterEqual(toNumber(65), toNumber(65)), v)
         for sub in solve(goal) {
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "the first number is strictly lesser than the second")
@@ -198,7 +199,6 @@ class expressionsTests: XCTestCase {
         }
     }
 
-
     func testImplies() {
         let v = Variable(named: "v")
         var goal = evalBoolean(implies(t, t), v)
@@ -222,7 +222,6 @@ class expressionsTests: XCTestCase {
             XCTAssert(r[v].equals(t), "False -> False is True")
         }
     }
-
 
     func testNot() {
         let v = Variable(named: "v")
@@ -253,12 +252,12 @@ class expressionsTests: XCTestCase {
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "wrong comparaison")
         }
-        goal = eval(not(greaterthan(toNumber(82), toNumber(141))), v)
+        goal = eval(not(greaterThan(toNumber(82), toNumber(141))), v)
         for sub in solve(goal){
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "wrong comparison")
         }
-        goal = eval(and(lessequal(toNumber(23),toNumber(23)), lessthan(toNumber(23),toNumber(32))), v)
+        goal = eval(and(lessEqual(toNumber(23),toNumber(23)), lessThan(toNumber(23),toNumber(32))), v)
         for sub in solve(goal){
             let r = sub.reified()
             XCTAssert(r[v].equals(t), "wrong comparison")

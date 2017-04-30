@@ -58,7 +58,6 @@ ______________________
 l + r -N -> lv +Nat rv
 */
 func add (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op": Value("+"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -74,7 +73,6 @@ ________________________________
 l - r -N -> lv -Nat rv
 */
 func subtract (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op": Value("-"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -90,7 +88,6 @@ ______________________
 l * r -N -> lv *Nat rv
 */
 func multiply (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op": Value("*"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -106,7 +103,6 @@ ________________________________________________
 l / r -N -> lv /Nat rv
 */
 func divide (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op": Value("/"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -123,7 +119,7 @@ not(x) in B
 
 Sémantique
 b -> f
-___________
+___________greaterEqual
 not(b) -> t
 
 b -> t
@@ -131,7 +127,6 @@ ___________
 not(b) -> f
 */
 func not (_ term: Term) -> Map {
-    assert (false)
     return ["op": Value ("not"), "what": term]
 }
 
@@ -159,7 +154,6 @@ ______________
 l and r -> f
 */
 func and (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op" : Value ("and"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -187,7 +181,6 @@ ______________
 l or r -> t
 */
 func or (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op" : Value ("or"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -215,7 +208,6 @@ ______________
 l implies r -> f
 */
 func implies (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op" : Value ("implies"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -232,8 +224,7 @@ l -N -> lv, r -N -> rv
 ______________________
 l < r -B -> lv <Nat rv
 */
-func lessthan (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
+func lessThan (_ lhs: Term, _ rhs: Term) -> Map {
     return ["op" : Value ("<"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -248,8 +239,7 @@ l -N -> lv, r -N -> rv
 ______________________
 l <= r -B -> lv <=Nat rv
 */
-func lessequal (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
+func lessEqual (_ lhs: Term, _ rhs: Term) -> Map {
     return ["op" : Value ("<="), "lhs": lhs, "rhs": rhs]
 }
 
@@ -264,8 +254,7 @@ l -N -> lv, r -N -> rv
 ______________________
 l > r -B -> lv >Nat rv
 */
-func greaterthan (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
+func greaterThan (_ lhs: Term, _ rhs: Term) -> Map {
     return ["op" : Value (">"), "lhs": lhs, "rhs": rhs]
 }
 
@@ -280,8 +269,7 @@ l -N -> lv, r -N -> rv
 ______________________
 l >= r -B -> lv >=Nat rv
 */
-func greaterequal (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
+func greaterEqual (_ lhs: Term, _ rhs: Term) -> Map {
     return ["op" : Value (">="), "lhs": lhs, "rhs": rhs]
 }
 
@@ -297,7 +285,6 @@ ______________________
 l = r -B -> lv =Nat rv
 */
 func equal (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op" : Value ("="), "lhs": lhs, "rhs": rhs]
 }
 
@@ -313,7 +300,6 @@ ______________________
 l != r -B -> lv !=Nat rv
 */
 func notequal (_ lhs: Term, _ rhs: Term) -> Map {
-    assert (false)
     return ["op" : Value ("!="), "lhs": lhs, "rhs": rhs]
 }
 
@@ -462,7 +448,6 @@ func evalPlus (_ lhs: Term, _ rhs: Term, _ result : Term) -> Goal {    //determi
 }
 
 func evalPlusRec (_ lhs: Term, _ rhs: Term, _ result: Term) -> Goal {    //this is the recursive part of the previous function
-    assert (false)
     return  lhs === List.empty && rhs === result ||
             rhs === List.empty && lhs === result ||
             delayed(freshn {t in
@@ -639,8 +624,7 @@ func evalLessEqual (_ lhs: Term, _ rhs: Term) -> Goal {     //determines if the 
 }
 
 func evalBoolean (_ input: Term, _ output: Term) -> Goal {    //determines if the boolean corresponding of the result of the boolean expression
-                                                          //given by the term 'input' is equal to the boolean 'output'
-    assert (false)
+                                                              //given by the term 'input' is equal to the boolean 'output'
     return  (input === t && output === t) || (input === f && output === f) ||
             freshn {g in
             let l  = g ["l"]
@@ -672,8 +656,7 @@ func evalBoolean (_ input: Term, _ output: Term) -> Goal {    //determines if th
 }
 
 func evalComparaison (_ input: Term, _ output: Term) -> Goal {    //determines if the boolean corresponding of the result of the inequality
-                                                              //given by the term 'input' is equal to the boolean 'output'
-    assert (false)
+                                                                  //given by the term 'input' is equal to the boolean 'output'
     return freshn{ t in
            let lhs = t["lhs"]
            let rhs = t["rhs"]
@@ -685,16 +668,16 @@ func evalComparaison (_ input: Term, _ output: Term) -> Goal {    //determines i
                    (input === notequal(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) &&     //case 'notequal'
                    ((evalNotEqual(lhs_reversed, rhs_reversed) && output === Value(true)) || (evalEqual(lhs_reversed, rhs_reversed) && output === Value(false)))) ||
 
-                   (input === lessthan(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) && ((evalLessThan(lhs_reversed, rhs_reversed) &&     //case 'lessthan'
+                   (input === lessThan(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) && ((evalLessThan(lhs_reversed, rhs_reversed) &&     //case 'lessThan'
                    output === Value(true)) || (evalGreaterEqual(lhs_reversed , rhs_reversed) && output === Value(false)))) ||
 
-                   (input === lessequal(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) && ((evalLessEqual(lhs_reversed, rhs_reversed) &&    //case 'lessequal'
+                   (input === lessEqual(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) && ((evalLessEqual(lhs_reversed, rhs_reversed) &&    //case 'lessEqual'
                    output === Value(true)) || (evalGreaterThan(lhs_reversed, rhs_reversed) && output === Value(false)))) ||
 
-                   (input === greaterthan(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) &&    //case 'greaterthan'
+                   (input === greaterThan(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) &&    //case 'greaterThan'
                    ((evalGreaterThan(lhs_reversed, rhs_reversed) && output === Value(true)) || (evalLessEqual(lhs_reversed, rhs_reversed) && output === Value(false)))) ||
 
-                   (input === greaterequal(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) &&     //case 'greaterequal'
+                   (input === greaterEqual(lhs, rhs) && (reverse(lhs, lhs_reversed) && reverse(rhs, rhs_reversed)) &&     //case 'greaterEqual'
                    ((evalGreaterEqual(lhs_reversed, rhs_reversed) && output === Value(true)) || (evalLessThan(lhs_reversed, rhs_reversed) && output === Value(false))))
           }
 }
@@ -702,8 +685,7 @@ func evalComparaison (_ input: Term, _ output: Term) -> Goal {    //determines i
 // Main evaluation:
 
 func eval (_ input: Term, _ output: Term) -> Goal {     //determines if the boolean corresponding of the result of the general operation (or expression)
-                                                    //given by the term 'input' is equal to the boolean 'output'
-    assert (false)
+                                                        //given by the term 'input' is equal to the boolean 'output'
     return  evalBoolean(input, output) || evalComparaison(input, output) ||
             delayed(freshn {t in
             let eval1 = t ["eval1"]
