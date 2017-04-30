@@ -23,10 +23,10 @@ class expressionsTests: XCTestCase {
             ("testDiv", testDiv),
             ("testEqual", testEqual),
             ("testNotEqual", testNotEqual),
-            ("testlessEqual", testlessEqual),
-            ("testgreaterThan", testgreaterThan),
-            ("testgreaterEqual", testgreaterEqual),
-            ("testlessThan", testlessThan),
+            ("testLessEqual", testLessEqual),
+            ("testGreaterThan", testGreaterThan),
+            ("testGreaterEqual", testGreaterEqual),
+            ("testLessThan", testLessThan),
             ("testEval", testEval)
         ]
     }
@@ -107,7 +107,7 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testlessThan() {
+    func testLessThan() {
         let v = Variable(named: "v")
         let goal = evalComparaison(lessThan(toNumber(3), toNumber(5)), v)
         for sub in solve(goal) {
@@ -117,7 +117,7 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testgreaterThan() {
+    func testGreaterThan() {
         let v = Variable(named: "v")
         let goal = evalComparaison(greaterThan(toNumber(7), toNumber(4)), v)
         for sub in solve(goal) {
@@ -127,7 +127,7 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testlessEqual() {
+    func testLessEqual() {
         let v = Variable(named: "v")
         let goal = evalComparaison(lessEqual(toNumber(41), toNumber(100)), v)
         for sub in solve(goal) {
@@ -137,7 +137,7 @@ class expressionsTests: XCTestCase {
         }
     }
 
-    func testgreaterEqual() {
+    func testGreaterEqual() {
         let v = Variable(named: "v")
         let goal = evalComparaison(greaterEqual(toNumber(65), toNumber(65)), v)
         for sub in solve(goal) {
